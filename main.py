@@ -36,7 +36,7 @@ login_manager = LoginManager(app)
 
 
 # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI", "sqlite:///posts.db")
+app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.environ.get('CYCLIC_DB', 'posts.db')}"
 db = SQLAlchemy()
 db.init_app(app)
 
