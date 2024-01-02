@@ -1,5 +1,6 @@
 import os
-from datetime import date
+from dotenv import load_dotenv
+from datetime import date, datetime
 from flask import Flask, abort, render_template, redirect, url_for, flash, request
 from flask_bootstrap import Bootstrap5
 from flask_ckeditor import CKEditor
@@ -11,6 +12,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import relationship
 from forms import RegisterForm, LoginForm
 from forms import CreatePostForm
+from context_processors import inject_globals
 
 
 '''
@@ -31,12 +33,14 @@ app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY')
 ckeditor = CKEditor(app)
 Bootstrap5(app)
 login_manager = LoginManager(app)
+# Load environment variables from the .env file
+load_dotenv()
 
 # TODO: Configure Flask-Login
 
 
 # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI", "sqlite:///posts.db")
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
 db = SQLAlchemy()
 db.init_app(app)
 
@@ -97,6 +101,11 @@ with app.app_context():
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+
+@app.context_processor
+def inject_global_variables():
+    return inject_globals()
 
 
 
