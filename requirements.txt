@@ -1,4 +1,3 @@
-setuptools
 Bootstrap_Flask
 Flask
 Flask_CKEditor
