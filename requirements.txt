@@ -1,4 +1,3 @@
---upgrade pip
 Bootstrap_Flask
 Flask
 Flask_CKEditor
