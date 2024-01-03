@@ -9,5 +9,4 @@ WTForms
 Werkzeug
 SQLAlchemy
 gunicorn
-dotenv
 python-dotenv
