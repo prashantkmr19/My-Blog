@@ -1,1 +1,1 @@
-web: pip install --upgrade pip && gunicorn main:app
+web: gunicorn main:app
